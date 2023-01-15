@@ -1,4 +1,4 @@
-# Pong
+# Kiko's Pong
 
 ## About
 Inspired by @DanZaidan's C++ tutorial (which can be found [**here**](https://www.youtube.com/playlist?list=PL7Ej6SUky135IAAR3PFCFyiVwanauRqj3)).
