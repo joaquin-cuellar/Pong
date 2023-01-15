@@ -140,6 +140,7 @@ break;\
 					proccessButton(BUTTON_ALTDOWN, VK_NEXT)
 					proccessButton(BUTTON_ENTER, VK_RETURN)
 					proccessButton(BUTTON_ESCAPE, VK_ESCAPE)
+					proccessButton(BUTTON_TAB, VK_TAB)
 				}
 			}break;
 

@@ -17,7 +17,6 @@ static int player2Score = 0;
 static void ResetArena()
 {
 	paddle1.color = 0xFFFFFF;
-	paddle2.color = 0xFFFFFF;
 	ball.color = 0xFFFFFF;
 
 	arena.height = 80;
@@ -38,9 +37,15 @@ static void ResetArena()
 	ball.bounceMultiplier = 1.2f;
 
 	if (isMultiplayer)
+	{
+		paddle2.color = 0xFFFFFF;
 		paddle2.movementSpeed = paddle1.movementSpeed;
+	}
 	else
+	{
+		paddle2.color = 0x808080;
 		paddle2.movementSpeed = paddle1.movementSpeed / 1.5f;
+	}
 }
 
 static void InitializeGame()
@@ -71,11 +76,21 @@ inline void pointScored()
 
 static void SimulateGame(Input* input, float deltaTime)
 {
+	//Toggle Multiplayer
+	if (buttonDown(BUTTON_TAB))
+	{
+		isMultiplayer = !isMultiplayer;
+		if (isMultiplayer)
+			paddle2.color = 0xFFFFFF;
+		else
+			paddle2.color = 0x808080;
+	}
+
 	//Quit Input
-	if (button(BUTTON_ESCAPE)) isRunning = false;
+	if (buttonDown(BUTTON_ESCAPE)) isRunning = false;
 
 	//Restart Game
-	if (button(BUTTON_ENTER))
+	if (buttonDown(BUTTON_ENTER))
 	{
 		InitializeGame();
 		throwBall();
