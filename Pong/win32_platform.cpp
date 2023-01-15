@@ -127,15 +127,19 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 				unsigned int vkCode = (unsigned int)message.wParam;
 				bool isDown = ((message.lParam & (1 << 31)) == 0);
 
-#define proccessButton(b, vk) case vk: input.button[b].isDown = isDown;input.button[b].hasChanged = true;break;
+#define proccessButton(b, vk) case vk:\
+input.button[b].hasChanged = isDown != input.button[b].isDown;\
+input.button[b].isDown = isDown;\
+break;\
 
 				switch (vkCode)
 				{
 					proccessButton(BUTTON_UP, VK_UP)
 					proccessButton(BUTTON_DOWN, VK_DOWN)
-					proccessButton(BUTTON_LEFT, VK_LEFT)
-					proccessButton(BUTTON_RIGHT, VK_RIGHT)
-					proccessButton(BUTTON_SHIFT, VK_SHIFT)
+					proccessButton(BUTTON_ALTUP, VK_PRIOR)
+					proccessButton(BUTTON_ALTDOWN, VK_NEXT)
+					proccessButton(BUTTON_ENTER, VK_RETURN)
+					proccessButton(BUTTON_ESCAPE, VK_ESCAPE)
 				}
 			}break;
 

@@ -13,8 +13,8 @@ static void ClearScreen(unsigned int color = 0x000000)
 static void DrawRectByPixel(int width, int height, int xStart, int yStart, unsigned int color = 0x000000)
 {
 	int yEnd, xEnd;
-	yEnd = yStart + width;
-	xEnd = xStart + height;
+	yEnd = yStart + height;
+	xEnd = xStart + width;
 
 	xStart = clamp(xStart, 0, buffer.width);
 	yStart = clamp(yStart, 0, buffer.height);
