@@ -9,16 +9,20 @@ Paddle paddle2;
 Ball ball;
 Object arena;
 
-bool isMultiplayer = true;
+bool isMultiplayer = false;
 
 static int player1Score = 0;
 static int player2Score = 0;
 
 static void ResetArena()
 {
+	paddle1.color = 0xFFFFFF;
+	paddle2.color = 0xFFFFFF;
+	ball.color = 0xFFFFFF;
+
 	arena.height = 80;
 	arena.width = 160;
-	arena.color = 0xfff;
+	arena.color = 0x87CEEB;
 
 	paddle1.x = (-arena.width / 2) + 5;
 	paddle2.x = (arena.width /2) - 5;
@@ -30,8 +34,13 @@ static void ResetArena()
 	ball.x = ball.y = 0;
 
 	ball.direction.x = ball.direction.y = 0;
-	ball.maxSpeed = 800;
+	ball.maxSpeed = 80;
 	ball.bounceMultiplier = 1.2f;
+
+	if (isMultiplayer)
+		paddle2.movementSpeed = paddle1.movementSpeed;
+	else
+		paddle2.movementSpeed = paddle1.movementSpeed / 1.5f;
 }
 
 static void InitializeGame()
@@ -43,7 +52,7 @@ static void InitializeGame()
 
 inline void throwBall()
 {
-	ball.movementSpeed = 20;
+	ball.movementSpeed = 30;
 
 	byte random = std::rand() % 2;
 	ball.direction.x = random == 1 ? -1 : 1;
@@ -93,6 +102,13 @@ static void SimulateGame(Input* input, float deltaTime)
 			paddle2.move(-1, deltaTime, arena.height / 2, -arena.height / 2);
 		}
 	}
+	else
+	{
+		if (ball.y > paddle2.y && ball.y - paddle2.y > paddle2.height / 2)
+			paddle2.move(1, deltaTime, arena.height / 2, -arena.height / 2);
+		else if (ball.y < paddle2.y && ball.y - paddle2.y < -paddle2.height / 2)
+			paddle2.move(-1, deltaTime, arena.height / 2, -arena.height / 2);
+	}
 	
 	// BALL MOVEMENT
 	ball.direction = normalize(ball.direction.x, ball.direction.y);
@@ -139,10 +155,21 @@ static void SimulateGame(Input* input, float deltaTime)
 		pointScored();
 	}
 
-	//Render
+	// Render
 	ClearScreen(0xFFC0CB);
 	arena.Render();
 	paddle1.Render();
 	paddle2.Render();
 	ball.Render();
+
+	// Render Scores
+	for (int i = 0; i < player1Score; i++)
+	{
+		DrawRect(3, 3, ((arena.width / 2) - 3 - (i * 4)), -(arena.height / 2 + 3), 0xFFFFFF);
+	}
+
+	for (int i = 0; i < player2Score; i++)
+	{
+		DrawRect(3, 3, -((arena.width / 2) - 3 - (i * 4)), (arena.height / 2 + 3), 0xFFFFFF);
+	}
 }
