@@ -1,8 +1,9 @@
-# Kiko's Pong
+# Pong C++
 
 ## About
-Inspired by @DanZaidan's C++ tutorial (which can be found [**here**](https://www.youtube.com/playlist?list=PL7Ej6SUky135IAAR3PFCFyiVwanauRqj3)).
-This small Pong game acts as an opportunity to apply my C++ understanding to a tangible project and understand the basics of building a game engine from the ground up using C++.
+As someone who learns best hands-on, I created this simple recreating of the timeless classic Pong as an excuse to touch up my C++ skills and create a tangible project from the ground up.
+
+Not only was I able to become much more confident in C++, but I was able to have quite a bit of fun while I was at it!
 
 ## Controls
 General:
